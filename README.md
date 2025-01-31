@@ -1,5 +1,8 @@
 # Micro-Panel: An Ecommerce Microservice Platform for Comic Book Stores  
 
+> [!CAUTION]
+> The application is still in early development. Many features are not tested or yet to be implemented.
+
 **Micro-Panel** is a Golang-based microservice project designed to provide a seamless ecommerce experience for comic book stores. This project consists of multiple microservices working together to manage CRUD operations, notifications, and real-time updates.
 
 ## Features  
