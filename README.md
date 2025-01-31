@@ -54,7 +54,7 @@ micro-panel/
 ├── notification-svc/      # Notification service  
 ├── docker-compose.yml     # Docker Compose setup  
 └── README.md              # Project documentation  
-```  
+```
 
 ---
 
