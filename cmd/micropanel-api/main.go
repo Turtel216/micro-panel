@@ -14,4 +14,7 @@ func main() {
 
 	defer db.Close()
 	log.Println("Successfully connected to database")
+
+	//st := storer.NewMySQLStorer(db.GetDB())
+	//str := server.NewServer(st)
 }
