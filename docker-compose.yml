@@ -15,3 +15,13 @@ services:
       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 --silent"]
       interval: 5s
       retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
