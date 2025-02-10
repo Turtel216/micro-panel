@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/Turtel216/micro-panel/micropanel-api/storer"
+	"github.com/Turtel216/micro-panel/util"
 )
 
 func toStorerProduct(p ProductReq) *storer.Product {
@@ -114,4 +115,39 @@ func toOrderItems(items []storer.OrderItem) []OrderItem {
 		})
 	}
 	return res
+}
+func toStorerUser(u UserReq) *storer.User {
+	return &storer.User{
+		Name:     u.Name,
+		Email:    u.Email,
+		Password: u.Password,
+		IsAdmin:  u.IsAdmin,
+	}
+}
+
+func toUserRes(u *storer.User) UserRes {
+	return UserRes{
+		Name:     u.Name,
+		Email:    u.Email,
+		Password: u.Password,
+	}
+}
+
+func patchUserReq(user *storer.User, u UserReq) {
+	if u.Name != "" {
+		user.Name = u.Name
+	}
+	if u.Email != "" {
+		user.Email = u.Email
+	}
+	if u.Password != "" {
+		hashed, err := util.HashPassword(u.Password)
+		if err != nil {
+			panic(err)
+		}
+		user.Password = hashed
+	}
+	if u.IsAdmin {
+		user.IsAdmin = u.IsAdmin
+	}
 }
