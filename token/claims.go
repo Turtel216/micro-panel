@@ -29,7 +29,7 @@ func NewUserClaims(id int64, email string, isAdmin bool, duration time.Duration)
 			ID:        tokenID.String(),
 			Subject:   email,
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
-			ExpiresAt: jwt.NumericDate(time.Now().Add(duration)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(duration)),
 		},
 	}, nil
 }

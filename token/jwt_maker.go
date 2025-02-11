@@ -21,7 +21,7 @@ func (maker *JWTMaker) CreateToken(id int64, email string, isAdmin bool, duratio
 		return "", nil, err
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodH256, claims)
+	token := jwt.NewWithClaims(jwt.SigningMethodES256, claims)
 	tokenStr, err := token.SignedString([]byte(maker.secretKey))
 	if err != nil {
 		return "", nil, fmt.Errorf("error signing token: %w", err)
@@ -32,7 +32,7 @@ func (maker *JWTMaker) CreateToken(id int64, email string, isAdmin bool, duratio
 
 func (maker *JWTMaker) VerifyToken(tokenStr string) (*UserClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenStr, &UserClaims{}, func(token *jwt.Token) (interface{}, error) {
-		_, ok := token.Method(*jwt.SigningMethodHMAC)
+		_, ok := token.Method.(*jwt.SigningMethodHMAC)
 		if !ok {
 			return nil, fmt.Errorf("invalid token signing method")
 		}
@@ -44,7 +44,7 @@ func (maker *JWTMaker) VerifyToken(tokenStr string) (*UserClaims, error) {
 		return nil, fmt.Errorf("error parsing token: %w", err)
 	}
 
-	claims, ok := token.Claims(*UserClaims)
+	claims, ok := token.Claims.(*UserClaims)
 	if !ok {
 		return nil, fmt.Errorf("invalid token claims")
 	}
